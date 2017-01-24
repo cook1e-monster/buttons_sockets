@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Super Awesome</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+      var socket = io.connect('http://localhost:3000');
+
+      //connect socket
+      //socket.on('connect', function ( data ) {
+      //  socket.emit('recive', 'hola como estas desde el cliente' );
+      //});
+
+
+      //recive from server
+      socket.on('send', function( data ) {
+        buttonObject = document.getElementById(data)
+        buttonObject.className += " active";
+      });
+
+
+      //send info
+      //socket.on('recive', function( data ) {
+      //  console.log('revice data: ', data)
+      //});
+
+      actionButton = function( data ) {
+        buttonObject = document.getElementById(data)
+        buttonObject.className += " active";
+
+        //send button id
+        socket.emit('recive', data)
+        return
+      }
+
+
+    </script>
+
+
+
+    <!-- CSS (load bootstrap from a CDN) -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <style>
+        body    { padding-top:50px; }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+  	  <div class="row-fluid">
+    		<div class="hero-unit">
+          <h1>Welcome to Socket game</h1>
+        </div>
+    	</div>
+    </div>
+
+    <br />
+    <br />
+    <div class='container'>
+      <div class='row-fluid'>
+
+        <div class='col-md-3'>
+          <!-- active for disable botton -->
+          <a href="#" class="gameButton btn btn-primary btn-lg" onclick='actionButton(1)' role="button" id="1">Button 1</a>
+        </div>
+
+        <div class='col-md-3'>
+          <a href="#" class="gameButton btn btn-success btn-lg" onclick='actionButton(2)' role="button" id="2">Button 2</a>
+        </div>
+
+        <div class='col-md-3'>
+          <a href="#" class="gameButton btn btn-info btn-lg" onclick='actionButton(3)' role="button" id="3">Button 3</a>
+        </div>
+
+        <div class='col-md-3'>
+          <a href="#" class="gameButton btn btn-warning btn-lg" onclick='actionButton(4)' role="button" id="4">Button 4</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
